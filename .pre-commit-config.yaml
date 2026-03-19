@@ -1,0 +1,9 @@
+repos:
+-   repo: local
+    hooks:
+    -   id: pipreqs
+        name: Update requirements.txt
+        entry: pipreqs . --force
+        language: system
+        pass_filenames: false
+        stages: [commit]
