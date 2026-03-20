@@ -13,5 +13,5 @@ setup(
     install_requires=parse_requirements('requirements.txt'),
     author="Anh Hao",
     description="Đồ án NCKH về Tóm tắt văn bản tiếng Việt đa nền tảng",
-    python_requires='3.9.25',
+    python_requires='>=3.9.25',
 )
