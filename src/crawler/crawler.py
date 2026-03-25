@@ -193,8 +193,20 @@ def parse_article(url: str, html: str) -> Optional[Article]:
         pass
     return art
 
+def get_next_post_id() -> int:
+    """Atomically increment and return the next post_id using a counters collection."""
+    result = db["counters"].find_one_and_update(
+        {"_id": "post_id"},
+        {"$inc": {"seq": 1}},
+        upsert=True,
+        return_document=True,
+    )
+    return result["seq"]
+
 def save_article(art: Article, source: str) -> bool:
+    post_id = get_next_post_id()
     doc = {
+        "post_id":       post_id,           # ← assigned at insert time
         "title":         art.title,
         "content":       art.text,
         "url":           art.url,
@@ -208,7 +220,11 @@ def save_article(art: Article, source: str) -> bool:
     result = collection.update_one(
         {"url": art.url}, {"$setOnInsert": doc}, upsert=True
     )
-    return result.upserted_id is not None
+    if result.upserted_id is not None:
+        return True
+    else:
+        db["counters"].update_one({"_id": "post_id"}, {"$inc": {"seq": -1}})
+        return False
 
 def process_article(url: str, source: str) -> bool:
     """Full pipeline for one article. Returns True if newly saved."""

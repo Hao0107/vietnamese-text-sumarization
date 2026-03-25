@@ -6,6 +6,9 @@ from pymongo import MongoClient
 # Khởi tạo Client mới
 client_ai = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 MODEL_ID = 'models/gemini-3.1-flash-lite-preview'
+# MODEL_ID = 'models/gemini-2.5-flash'
+# MODEL_ID = 'models/gemini-2.5-flash-lite'
+# MODEL_ID = 'models/gemma-3-12b-it'
 
 # Kết nối MongoDB
 db_client = MongoClient(os.getenv("MONGO_URI", "mongodb://localhost:27017/"))
@@ -23,7 +26,9 @@ def summarize_text(text):
         2. NỘI DUNG: Phải bao quát được sự kiện chính (Ai làm gì? Ở đâu? Khi nào? Kết quả thế nào?).
         3. THỰC THỂ: Giữ chính xác 100% tên riêng (người, tổ chức), địa danh và các con số thống kê quan trọng.
         4. PHONG CÁCH: Khách quan, không thêm nhận xét cá nhân, không mở đầu bằng "Bài báo nói về..." hay "Tóm tắt là...". Hãy đi thẳng vào nội dung.
-        5. Sau khi tóm tắt xong hãy kiểm tra lại xem bản tóm tắt trên có thông tin nào không có trong văn bản gốc không? Nếu có hãy lược bỏ.
+        5. Sau khi tóm tắt xong hãy kiểm tra lại xem bản tóm tắt trên có thông tin nào mà không có trong văn bản gốc không? Nếu có thông tin không có trong văn bản gốc hãy lược bỏ. 
+        Chỉ giữ lại những thông tin có trong văn bản gốc. Không thêm chú thích, không giải thích, không bình luận, chỉ trả về bản tóm tắt.
+        6. Vì đây là văn bản tóm tắt nên kết quả trả về phải ngắn hơn dữ liệu đầu vào. Nếu kết quả trả về dài hơn dữ liệu đầu vào thì hãy lược bỏ bớt thông tin trong bản tóm tắt để đảm bảo kết quả trả về ngắn hơn dữ liệu đầu vào.
 
         ### DỮ LIỆU ĐẦU VÀO
         Nội dung văn bản:
@@ -52,17 +57,17 @@ def run_labeler():
     print(f"Đang xử lý {len(articles)} bài báo...")
 
     for i, doc in enumerate(articles):
-        print(f"[{i+1}/{len(articles)}] {doc['title']}")
-        summary = summarize_text(doc['content'][:3000])
+        print(f"[{i+1}/{len(articles)}] \n Post ID: {doc['post_id']} \n Title: {doc['title']}")
+        summary = summarize_text(doc['content'][:10000])
         if summary:
             collection.update_one(
                 {"_id": doc["_id"]},
-                {"$set": {"summary": summary, "is_summarized": True}}
+                {"$set": {"summary": summary, "is_summarized": True, "model_used": MODEL_ID}}
             )
             
-            print("summarized successfully. content:", summary[:20], "...")
+            print(" - Summarized successfully. \n --content:", summary[:50], "...")
             
-            time.sleep(5) 
+            time.sleep(6)
 
 if __name__ == "__main__":
     run_labeler()

@@ -1,0 +1,162 @@
+dc|được
+dk|được
+đc|được
+dcj|được
+dcjz|được
+
+hk|không
+ko|không
+k|không
+kh|không
+khg|không
+khong|không
+hong|không
+hông|không
+k0|không
+kg|không
+
+ng|người
+n|người
+nguoi|người
+nguo|người
+
+gđ|gia đình
+gd|gia đình
+giadinh|gia đình
+
+đt|điện thoại
+dt|điện thoại
+dthoai|điện thoại
+dienthoai|điện thoại
+
+hđ|hợp đồng
+hd|hợp đồng
+hopdong|hợp đồng
+
+pt|phát triển
+phattrien|phát triển
+
+ks|khách sạn
+khachsan|khách sạn
+
+tt|thông tin
+thongtin|thông tin
+t.tin|thông tin
+
+kv|khu vực
+khuvuc|khu vực
+
+tp|thành phố
+tp.|thành phố
+thanhpho|thành phố
+
+hcm|hồ chí minh
+tphcm|hồ chí minh
+tp hcm|hồ chí minh
+hochiminh|hồ chí minh
+hcmc|hồ chí minh
+
+hn|hà nội
+hanoi|hà nội
+tp hn|hà nội
+
+vn|việt nam
+vnam|việt nam
+vietnam|việt nam
+
+đv|đơn vị
+dv|đơn vị
+donvi|đơn vị
+
+ql|quản lý
+quanly|quản lý
+
+nn|nhà nước
+nhanuoc|nhà nước
+
+dn|doanh nghiệp
+doanhnghiep|doanh nghiệp
+
+kt|kinh tế
+kinhte|kinh tế
+
+xh|xã hội
+xahoi|xã hội
+
+ch|cửa hàng
+cuahang|cửa hàng
+shop|cửa hàng
+
+ns|nghệ sĩ
+nghesi|nghệ sĩ
+
+j|gì
+gi|gì
+gi2|gì
+z|gì
+ji|gì
+
+ieu|yêu
+iu|yêu
+yeu|yêu
+yew|yêu
+iuu|yêu
+
+mk|mình
+mik|mình
+minh|mình
+
+nhìu|nhiều
+nhieu|nhiều
+nhiu|nhiều
+nhìu|nhiều
+
+wa|quá
+qua|quá
+qá|quá
+
+wao|vậy sao
+wow|vậy sao
+
+bit|biết
+bít|biết
+biet|biết
+bik|biết
+pik|biết
+
+ace|anh chị em
+a/c/e|anh chị em
+
+cmt|bình luận
+comment|bình luận
+cmnt|bình luận
+
+thui|thôi
+thoy|thôi
+thoi|thôi
+
+tks|cảm ơn
+thanks|cảm ơn
+thank|cảm ơn
+thx|cảm ơn
+camon|cảm ơn
+
+ty|tình yêu
+t.y|tình yêu
+tinyeu|tình yêu
+
+stt|trạng thái
+status|trạng thái
+
+ad|quản trị viên
+admin|quản trị viên
+
+4u|cho bạn
+foru|cho bạn
+
+2u|tới bạn
+tou|tới bạn
+
+g9|ngủ ngon
+gn|ngủ ngon
+goodnight|ngủ ngon

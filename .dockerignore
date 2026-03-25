@@ -1,0 +1,15 @@
+
+.gitignore
+
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+.env
+
+.vscode/
+__pycache__/
+
+notebooks/
+data/
+src/models/

@@ -1,6 +1,3 @@
-models/
-src/test_models.py
-/docker-compose.yml
-docker-compose.yml
-
-
+.env
+data/
+logs/

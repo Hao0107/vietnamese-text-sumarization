@@ -15,32 +15,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-
-# ---------------------------------------------------------------------------
-# Vietnamese-specific noise patterns
-# ---------------------------------------------------------------------------
-_TEENCODE_MAP = {
-    # Viết tắt phổ biến
-    r'\bđc\b': 'được', r'\bhk\b': 'không', r'\bko\b': 'không', r'\bk\b': 'không',
-    r'\bkh\b': 'không', r'\bng\b': 'người', r'\bn\b': 'người', r'\bgđ\b': 'gia đình',
-    r'\bđt\b': 'điện thoại', r'\bhđ\b': 'hợp đồng', r'\bpt\b': 'phát triển',
-    r'\bks\b': 'khách sạn', r'\btt\b': 'thông tin', r'\bkv\b': 'khu vực',
-    r'\btp\b': 'thành phố', r'\bhcm\b': 'hồ chí minh', r'\bhn\b': 'hà nội',
-    r'\bvn\b': 'việt nam', r'\bđv\b': 'đơn vị', r'\bql\b': 'quản lý',
-    r'\bnn\b': 'nhà nước', r'\bdn\b': 'doanh nghiệp', r'\bkt\b': 'kinh tế',
-    r'\bxh\b': 'xã hội', r'\bch\b': 'cửa hàng', r'\bns\b': 'nghệ sĩ',
-    
-    # Ngôn ngữ mạng (Threads/X/FB)
-    r'\bj\b': 'gì', r'\bgi\b': 'gì', r'\bieu\b': 'yêu', r'\biu\b': 'yêu',
-    r'\bmk\b': 'mình', r'\bminh\b': 'mình', r'\bnhìu\b': 'nhiều',
-    r'\bwa\b': 'quá', r'\bwao\b': 'vậy sao', r'\bbit\b': 'biết',
-    r'\bbít\b': 'biết', r'\bace\b': 'anh chị em', r'\bcmt\b': 'bình luận',
-    r'\bthui\b': 'thôi', r'\btks\b': 'cảm ơn', r'\bthanks\b': 'cảm ơn',
-    r'\bty\b': 'tình yêu', r'\bstt\b': 'trạng thái', r'\bad\b': 'quản trị viên',
-    
-    # Ký hiệu/Teencode cũ nhưng vẫn xuất hiện
-    r'\b4u\b': 'cho bạn', r'\b2u\b': 'tới bạn', r'\bg9\b': 'ngủ ngon',
-}
+_TEENCODE_PATH = "./teencode.txt"
 
 _NOISE_PATTERNS = [
     re.compile(r'<[^>]+>'),                         # HTML tags
@@ -72,11 +47,28 @@ class VietnamesePreprocessor:
         self.max_workers = max_workers
 
         # Compile teencode patterns once
-        self._teencode = [
-            (re.compile(pat, re.IGNORECASE), repl)
-            for pat, repl in _TEENCODE_MAP.items()
-        ]
+        self._teencode = self._load_teencode(_TEENCODE_PATH)
 
+    # Load teencode
+    def _load_teencode(self, path: str) -> list:
+        teencode_list = []
+        if not os.path.exists(path):
+            logger.warning(f"Teencode file not found at {path}. Skipping teencode normalization.")
+            return []
+
+        with open(path, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                
+                if '|' in line:
+                    key, value = line.split('|')
+                    
+                    pattern = re.compile(fr'\b{key.strip()}\b', re.IGNORECASE)
+                    teencode_list.append((pattern, value.strip()))
+        
+        logger.info(f"Loaded {len(teencode_list)} teencode rules from {path}")
+        return teencode_list
+    
     # ------------------------------------------------------------------
     # Text cleaning
     # ------------------------------------------------------------------
