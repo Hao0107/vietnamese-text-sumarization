@@ -1,3 +1,9 @@
+*.csv
+*.json
+*.pyc
+*.pyo
+*.pyd
+
 
 .gitignore
 
@@ -5,11 +11,19 @@ Dockerfile
 docker-compose.yml
 .dockerignore
 
-.env
+# .env
 
 .vscode/
 __pycache__/
 
 notebooks/
 data/
+logs/
 src/models/
+
+train/results_vit5/
+train/__pycache__/
+
+utils/__pycache__/
+
+vietnamese_summarization_nlp.egg-info/

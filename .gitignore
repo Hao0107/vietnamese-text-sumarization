@@ -1,3 +1,6 @@
 .env
 data/
 logs/
+src/models
+
+vietnamese_summarization_nlp.egg-info/

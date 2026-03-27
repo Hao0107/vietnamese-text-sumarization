@@ -1,2 +1,8 @@
 add_post_id.py
 test_models.py
+
+train/results_vit5/
+
+__pycache__/
+train/__pycache__/
+utils/__pycache__/

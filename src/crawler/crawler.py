@@ -23,6 +23,7 @@ from bs4 import BeautifulSoup
 import newspaper
 from newspaper import Article
 from pymongo import MongoClient
+import pymongo
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 from sources import SOURCES
@@ -198,8 +199,8 @@ def get_next_post_id() -> int:
     result = db["counters"].find_one_and_update(
         {"_id": "post_id"},
         {"$inc": {"seq": 1}},
-        upsert=True,
-        return_document=True,
+        return_document=pymongo.ReturnDocument.AFTER,
+        upsert=True
     )
     return result["seq"]
 

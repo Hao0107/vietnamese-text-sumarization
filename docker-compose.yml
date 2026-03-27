@@ -1,8 +1,10 @@
+version: '0.1'
+
 services:
   mongodb:
     image: mongo:latest
     container_name: mongodb_nlp
-    
+    restart: always
     ports:
       - "27017:27017"
     volumes:
@@ -16,7 +18,7 @@ services:
     environment:
     - MONGO_URI=mongodb://mongodb:27017/
     - GEMINI_API_KEY=${MY_GEMINI_API_KEY}
-    - OPENAI_API_KEY=${MY_OPENAI_API_KEY}
+    # - OPENAI_API_KEY=${MY_OPENAI_API_KEY}
     
 volumes:
   mongo_data:
