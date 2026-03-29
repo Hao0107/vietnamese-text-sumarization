@@ -2,13 +2,28 @@ import os
 import time
 from google import genai
 from pymongo import MongoClient
+import argparse
     
-# Khởi tạo Client mới
+    
+
+# MODEL_ID = "models/gemini-3.1-flash-lite-preview"
+# MODEL_ID = "models/gemini-2.5-flash"
+# MODEL_ID = "models/gemini-2.5-flash-lite"
+# MODEL_ID = "models/gemma-3-12b-it"
+# MODEL_ID = "models/gemma-3-27b-it"
+    
+parser = argparse.ArgumentParser(description="NLP News Labeler with Gemini/Gemma")
+parser.add_argument(
+    "--model", 
+    type=str, 
+    default=os.getenv("MODEL_ID", "models/gemini-3.1-flash-lite-preview")
+)
+args = parser.parse_args()
+
+MODEL_ID = args.model  
+
+# Khởi tạo Client (Giữ nguyên phần dưới)
 client_ai = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-# MODEL_ID = 'models/gemini-3.1-flash-lite-preview'
-# MODEL_ID = 'models/gemini-2.5-flash'
-# MODEL_ID = 'models/gemini-2.5-flash-lite'
-MODEL_ID = 'models/gemma-3-12b-it'
 
 # Kết nối MongoDB
 db_client = MongoClient(os.getenv("MONGO_URI", "mongodb://localhost:27017/"))
@@ -70,4 +85,5 @@ def run_labeler():
             time.sleep(6)
 
 if __name__ == "__main__":
+    print(f"--- Đang khởi động Labeler với mô hình: {MODEL_ID} ---")
     run_labeler()
