@@ -17,8 +17,8 @@ urllib3==2.6.3
 lxml_html_clean
 google-genai
 python-dotenv
+datasets==4.8.4
 
-# datasets==4.8.4
 # torch==2.11.0
 # transformers==4.40.0
 # tokenizers==0.19.1
